@@ -52,7 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
   };
   console.log();
 
-  btnAddQuote.onclick = function () {
+  btnAddQuote.addEventListener("click", createAddQuoteForm);
+  function createAddQuoteForm() {
     const text = newQuoteText.value;
     const category = newQuoteCategory.value.trim();
     switch (category) {
@@ -79,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
       default:
         data[category] = [text];
     }
-  };
+  }
   showNewQuote.addEventListener("click", displayRandomQuote);
   function displayRandomQuote() {
     const num = Math.floor(Math.random() * 4);
