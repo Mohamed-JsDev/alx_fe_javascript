@@ -84,20 +84,23 @@ document.addEventListener("DOMContentLoaded", function () {
   function displayRandomQuote() {
     const num = Math.floor(Math.random() * 4);
     const num2 = Math.floor(Math.random() * 10);
-    if (num === 0) {
-      quoteDisplay.innerHTML = data.work[num2];
-      console.log(data.work[num2]);
-    } else if (num === 1) {
-      quoteDisplay.innerHTML = data.live[num2];
-      console.log(data.live[num2]);
-    } else if (num === 2) {
-      quoteDisplay.innerHTML = data.sleep[num2];
-      console.log(data.sleep[num2]);
-    } else if (num === 3) {
-      quoteDisplay.innerHTML = data.wife[num2];
-      console.log(data.wife[num2]);
-    } else {
-      console.log("category is not defiend ");
+    function showRandomQuote() {
+      if (num === 0) {
+        quoteDisplay.innerHTML = data.work[num2];
+        console.log(data.work[num2]);
+      } else if (num === 1) {
+        quoteDisplay.innerHTML = data.live[num2];
+        console.log(data.live[num2]);
+      } else if (num === 2) {
+        quoteDisplay.innerHTML = data.sleep[num2];
+        console.log(data.sleep[num2]);
+      } else if (num === 3) {
+        quoteDisplay.innerHTML = data.wife[num2];
+        console.log(data.wife[num2]);
+      } else {
+        console.log("category is not defiend ");
+      }
     }
+    showRandomQuote();
   }
 });
