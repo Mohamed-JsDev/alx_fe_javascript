@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const textQuote = document.createElement("p");
     textQuote.innerHTML = "joke added done";
     AddNewQuote.appendChild(textQuote);
+    document.body.appendChild(AddNewQuote);
   }
   showNewQuote.addEventListener("click", displayRandomQuote);
   function displayRandomQuote() {
