@@ -80,7 +80,8 @@ document.addEventListener("DOMContentLoaded", function () {
         data[category] = [text];
     }
   };
-  showNewQuote.onclick = function () {
+  showNewQuote.addEventListener("click", displayRandomQuote);
+  function displayRandomQuote() {
     const num = Math.floor(Math.random() * 4);
     const num2 = Math.floor(Math.random() * 10);
     if (num === 0) {
@@ -98,5 +99,5 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       console.log("category is not defiend ");
     }
-  };
+  }
 });
