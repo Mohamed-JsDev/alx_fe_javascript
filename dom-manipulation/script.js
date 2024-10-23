@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const newQuoteText = document.getElementById("newQuoteText");
   const newQuoteCategory = document.getElementById("newQuoteCategory"); // Updated ID
   const btnAddQuote = document.getElementById("btnAddQuote");
-  const newQuote = document.getElementById("newQuote");
-  const showQuote = document.getElementById("quoteDisplay");
+  const showNewQuote = document.getElementById("newQuote");
+  const quoteDisplay = document.getElementById("quoteDisplay");
   const data = {
     work: [
       "I used to work at a stationery store.  But, I didn't feel like I was going anywhere.",
@@ -80,20 +80,20 @@ document.addEventListener("DOMContentLoaded", function () {
         data[category] = [text];
     }
   };
-  newQuote.onclick = function () {
+  showNewQuote.onclick = function () {
     const num = Math.floor(Math.random() * 4);
     const num2 = Math.floor(Math.random() * 10);
     if (num === 0) {
-      showQuote.textContent = data.work[num2];
+      quoteDisplay.innerHTML = data.work[num2];
       console.log(data.work[num2]);
     } else if (num === 1) {
-      showQuote.textContent = data.live[num2];
+      quoteDisplay.innerHTML = data.live[num2];
       console.log(data.live[num2]);
     } else if (num === 2) {
-      showQuote.textContent = data.sleep[num2];
+      quoteDisplay.innerHTML = data.sleep[num2];
       console.log(data.sleep[num2]);
     } else if (num === 3) {
-      showQuote.textContent = data.wife[num2];
+      quoteDisplay.innerHTML = data.wife[num2];
       console.log(data.wife[num2]);
     } else {
       console.log("category is not defiend ");
