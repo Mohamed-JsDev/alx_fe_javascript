@@ -75,11 +75,14 @@ document.addEventListener("DOMContentLoaded", function () {
       case "wife":
         data.wife.push(text);
         console.log("joke added done");
-
         break;
       default:
         data[category] = [text];
     }
+    const AddNewQuote = document.createElement("div");
+    const textQuote = document.createElement("p");
+    textQuote.innerHTML = "joke added done";
+    AddNewQuote.appendChild(textQuote);
   }
   showNewQuote.addEventListener("click", displayRandomQuote);
   function displayRandomQuote() {
