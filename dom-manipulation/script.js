@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
   btnAddQuote.addEventListener("click", createAddQuoteForm);
 
   showNewQuote.addEventListener("click", displayRandomQuote);
+  document
+    .getElementById("exportButton")
+    .addEventListener("click", exportQuotesToJson);
 
   const data = {
     work: [
@@ -133,14 +136,48 @@ document.addEventListener("DOMContentLoaded", function () {
     showRandomQuote();
   }
 
+  let quotes = JSON.parse(localStorage.getItem("quotes")) || [];
+
+  // Function to save quotes to local storage
+  function saveQuotes() {
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+  }
+
+  // Function to export quotes to JSON
+  function exportQuotesToJson() {
+    const jsonQuotes = JSON.stringify(quotes, null, 2); // Pretty print with 2 spaces
+    const blob = new Blob([jsonQuotes], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "quotes.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url); // Free up memory
+  }
+
+  // Function to import quotes from JSON file
   function importFromJsonFile(event) {
     const fileReader = new FileReader();
     fileReader.onload = function (event) {
-      const importedQuotes = JSON.parse(event.target.result);
-      quotes.push(...importedQuotes);
-      saveQuotes();
-      alert("Quotes imported successfully!");
+      try {
+        const importedQuotes = JSON.parse(event.target.result);
+        if (Array.isArray(importedQuotes)) {
+          quotes.push(...importedQuotes);
+          saveQuotes();
+          alert("Quotes imported successfully!");
+        } else {
+          alert("Invalid JSON format. Please upload a valid quotes JSON file.");
+        }
+      } catch (error) {
+        alert("Error reading JSON file: " + error.message);
+      }
     };
+
     fileReader.readAsText(event.target.files[0]);
   }
+
+  // Add event listener to the export button
 });
