@@ -130,8 +130,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // const num = Math.floor(Math.random() * 10);
     const num2 = Math.floor(Math.random() * 10);
     function showRandomQuote() {
-      const value = localStorage.getItem("value");
-      switch (value) {
+      const selectedCategory = localStorage.getItem("value");
+      switch (selectedCategory) {
         case "work":
           const work = [localStorage.getItem("work")];
           quoteDisplay.innerHTML = data.work[num2];
