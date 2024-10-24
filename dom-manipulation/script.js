@@ -4,6 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnAddQuote = document.getElementById("btnAddQuote");
   const showNewQuote = document.getElementById("newQuote");
   const quoteDisplay = document.getElementById("quoteDisplay");
+
+  btnAddQuote.addEventListener("click", createAddQuoteForm);
+
+  showNewQuote.addEventListener("click", displayRandomQuote);
+
   const data = {
     work: [
       "I used to work at a stationery store.  But, I didn't feel like I was going anywhere.",
@@ -50,66 +55,79 @@ document.addEventListener("DOMContentLoaded", function () {
       "My wife said I was immature. So I told her to get out of my fort.",
     ],
   };
-
-  btnAddQuote.addEventListener("click", createAddQuoteForm);
+  localStorage.setItem("work", data.work);
+  localStorage.setItem("live", data.live);
+  localStorage.setItem("sleep", data.sleep);
+  localStorage.setItem("wife", data.wife);
   function createAddQuoteForm() {
     const text = newQuoteText.value;
     const category = newQuoteCategory.value.trim();
     let message = [];
     switch (category) {
       case "work":
+        localStorage.removeItem(category);
         data.work.push(text);
         message = text;
-        addLocal(text, category);
+        localStorage.setItem(category, data.work);
+        // vaLs.push(text);
         break;
       case "live":
+        localStorage.removeItem(category);
         data.live.push(text);
         message = text;
-        addLocal(text, category);
+        localStorage.setItem(category, data.live);
+
         break;
       case "sleep":
+        localStorage.removeItem(category);
         data.sleep.push(text);
         message = text;
-        addLocal(text, category);
+        localStorage.setItem(category, data.sleep);
         break;
       case "wife":
+        localStorage.removeItem(category);
         data.wife.push(text);
         message = text;
-        addLocal(text, category);
+        localStorage.setItem(category, data.wife);
         break;
       default:
         data[category] = [text];
         message = text;
-        addLocal(text, category);
+        localStorage.setItem(category, text);
     }
-    function addLocal(Quote, category) {
-      localStorage.setItem(category, Quote);
-    }
+    // function addLocal(Quote, category) {
+    //   if (data.category) {
+    //     localStorage.setItem(data.category, Quote);
+    //   }
+    // }
     const AddNewQuote = document.createElement("div");
     const textQuote = document.createElement("p");
     textQuote.innerHTML = `${message} is added done`;
     AddNewQuote.appendChild(textQuote);
     document.body.appendChild(AddNewQuote);
   }
-  showNewQuote.addEventListener("click", displayRandomQuote);
   function displayRandomQuote() {
     const num = Math.floor(Math.random() * 4);
     const num2 = Math.floor(Math.random() * 10);
     function showRandomQuote() {
       if (num === 0) {
+        const work = localStorage.getItem("work");
         quoteDisplay.innerHTML = data.work[num2];
-        console.log(data.work[num2]);
+        console.log(work[num2]);
       } else if (num === 1) {
+        const live = localStorage.getItem("live");
         quoteDisplay.innerHTML = data.live[num2];
-        console.log(data.live[num2]);
+        console.log(live[num2]);
       } else if (num === 2) {
+        const sleep = localStorage.getItem("sleep");
         quoteDisplay.innerHTML = data.sleep[num2];
-        console.log(data.sleep[num2]);
+        console.log(sleep[num2]);
       } else if (num === 3) {
+        const wife = localStorage.getItem(wife);
         quoteDisplay.innerHTML = data.wife[num2];
-        console.log(data.wife[num2]);
+        console.log(wife[num2]);
       } else {
-        console.log("category is not defiend ");
+        quoteDisplay.innerHTML = "try again";
       }
     }
     showRandomQuote();
