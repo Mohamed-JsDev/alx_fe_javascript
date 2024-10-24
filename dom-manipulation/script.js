@@ -52,7 +52,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const quoteDisplay = document.getElementById("quoteDisplay");
   const categoryFilter = document.getElementById("categoryFilter");
   const exportButton = document.getElementById("exportQuotes");
+  function populateCategories() {
+    const categories = Object.keys(data);
+    console.log(categories);
 
+    categories.map((opt) => {
+      const option = document.createElement("option");
+      option.innerHTML = opt;
+      categoryFilter.appendChild(option);
+    });
+  }
+  populateCategories();
   localStorage.setItem("value", categoryFilter.value);
   categoryFilter.onchange = function filterQuotes() {
     localStorage.setItem("value", categoryFilter.value);
