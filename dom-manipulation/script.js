@@ -1,17 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const newQuoteText = document.getElementById("newQuoteText");
-  const newQuoteCategory = document.getElementById("newQuoteCategory"); // Updated ID
-  const btnAddQuote = document.getElementById("btnAddQuote");
-  const showNewQuote = document.getElementById("newQuote");
-  const quoteDisplay = document.getElementById("quoteDisplay");
-
-  btnAddQuote.addEventListener("click", createAddQuoteForm);
-
-  showNewQuote.addEventListener("click", displayRandomQuote);
-  document
-    .getElementById("exportButton")
-    .addEventListener("click", exportQuotesToJson);
-
   const data = {
     work: [
       "I used to work at a stationery store.  But, I didn't feel like I was going anywhere.",
@@ -58,6 +45,25 @@ document.addEventListener("DOMContentLoaded", function () {
       "My wife said I was immature. So I told her to get out of my fort.",
     ],
   };
+  const newQuoteText = document.getElementById("newQuoteText");
+  const newQuoteCategory = document.getElementById("newQuoteCategory"); // Updated ID
+  const btnAddQuote = document.getElementById("btnAddQuote");
+  const showNewQuote = document.getElementById("newQuote");
+  const quoteDisplay = document.getElementById("quoteDisplay");
+  const categoryFilter = document.getElementById("categoryFilter");
+  const exportButton = document.getElementById("exportQuotes");
+
+  localStorage.setItem("value", categoryFilter.value);
+  categoryFilter.onchange = function filterQuotes() {
+    localStorage.setItem("value", categoryFilter.value);
+  };
+
+  btnAddQuote.addEventListener("click", createAddQuoteForm);
+
+  showNewQuote.addEventListener("click", displayRandomQuote);
+
+  exportButton.addEventListener("click", exportQuotesToJson);
+
   localStorage.setItem("work", data.work);
   localStorage.setItem("live", data.live);
   localStorage.setItem("sleep", data.sleep);
@@ -109,33 +115,43 @@ document.addEventListener("DOMContentLoaded", function () {
     AddNewQuote.appendChild(textQuote);
     document.body.appendChild(AddNewQuote);
   }
+  // show random Quote
   function displayRandomQuote() {
-    const num = Math.floor(Math.random() * 4);
+    // const num = Math.floor(Math.random() * 10);
     const num2 = Math.floor(Math.random() * 10);
     function showRandomQuote() {
-      if (num === 0) {
-        const work = localStorage.getItem("work");
-        quoteDisplay.innerHTML = data.work[num2];
-        console.log(work[num2]);
-      } else if (num === 1) {
-        const live = localStorage.getItem("live");
-        quoteDisplay.innerHTML = data.live[num2];
-        console.log(live[num2]);
-      } else if (num === 2) {
-        const sleep = localStorage.getItem("sleep");
-        quoteDisplay.innerHTML = data.sleep[num2];
-        console.log(sleep[num2]);
-      } else if (num === 3) {
-        const wife = localStorage.getItem(wife);
-        quoteDisplay.innerHTML = data.wife[num2];
-        console.log(wife[num2]);
-      } else {
-        quoteDisplay.innerHTML = "try again";
+      const value = localStorage.getItem("value");
+      switch (value) {
+        case "work":
+          const work = [localStorage.getItem("work")];
+          quoteDisplay.innerHTML = data.work[num2];
+          // console.log(work[num2]);/
+          break;
+        case "live":
+          const live = localStorage.getItem("live");
+          quoteDisplay.innerHTML = data.live[num2];
+          // console.log(live[num2]);
+          break;
+        case "sleep":
+          const sleep = localStorage.getItem("sleep");
+          quoteDisplay.innerHTML = data.sleep[num2];
+          // console.log(sleep[num2]);
+          break;
+        case "wife":
+          const wife = localStorage.getItem("wife");
+          quoteDisplay.innerHTML = data.wife[num2];
+          // console.log(wife[num2]);
+          break;
+        default:
+          let data1 = [...data.work, ...data.live, ...data.sleep, ...data.wife];
+          quoteDisplay.innerHTML = data1[num2];
+          break;
       }
     }
     showRandomQuote();
   }
 
+  // add json file
   let quotes = JSON.parse(localStorage.getItem("quotes")) || [];
 
   // Function to save quotes to local storage
@@ -181,3 +197,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add event listener to the export button
 });
+
+// if (value === "") {
+//   const work = localStorage.getItem("work");
+//   quoteDisplay.innerHTML = data.work[num2];
+//   console.log(work[num2]);
+// } else if (num === 1) {
+//   const live = localStorage.getItem("live");
+//   quoteDisplay.innerHTML = data.live[num2];
+//   console.log(live[num2]);
+// } else if (num === 2) {
+//   const sleep = localStorage.getItem("sleep");
+//   quoteDisplay.innerHTML = data.sleep[num2];
+//   console.log(sleep[num2]);
+// } else if (num === 3) {
+//   const wife = localStorage.getItem(wife);
+//   quoteDisplay.innerHTML = data.wife[num2];
+//   console.log(wife[num2]);
+// } else {
+//   quoteDisplay.innerHTML = "try again";
+// }
