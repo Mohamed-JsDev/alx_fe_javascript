@@ -50,38 +50,44 @@ document.addEventListener("DOMContentLoaded", function () {
       "My wife said I was immature. So I told her to get out of my fort.",
     ],
   };
-  console.log();
 
   btnAddQuote.addEventListener("click", createAddQuoteForm);
   function createAddQuoteForm() {
     const text = newQuoteText.value;
     const category = newQuoteCategory.value.trim();
+    let message = [];
     switch (category) {
       case "work":
         data.work.push(text);
-        console.log("joke added done");
-
+        message = text;
+        addLocal(text, category);
         break;
       case "live":
         data.live.push(text);
-        console.log("joke added done");
-
+        message = text;
+        addLocal(text, category);
         break;
       case "sleep":
         data.sleep.push(text);
-        console.log("joke added done");
-
+        message = text;
+        addLocal(text, category);
         break;
       case "wife":
         data.wife.push(text);
-        console.log("joke added done");
+        message = text;
+        addLocal(text, category);
         break;
       default:
         data[category] = [text];
+        message = text;
+        addLocal(text, category);
+    }
+    function addLocal(Quote, category) {
+      localStorage.setItem(category, Quote);
     }
     const AddNewQuote = document.createElement("div");
     const textQuote = document.createElement("p");
-    textQuote.innerHTML = "joke added done";
+    textQuote.innerHTML = `${message} is added done`;
     AddNewQuote.appendChild(textQuote);
     document.body.appendChild(AddNewQuote);
   }
@@ -107,5 +113,16 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
     showRandomQuote();
+  }
+
+  function importFromJsonFile(event) {
+    const fileReader = new FileReader();
+    fileReader.onload = function (event) {
+      const importedQuotes = JSON.parse(event.target.result);
+      quotes.push(...importedQuotes);
+      saveQuotes();
+      alert("Quotes imported successfully!");
+    };
+    fileReader.readAsText(event.target.files[0]);
   }
 });
