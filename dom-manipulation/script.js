@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     categories.map((opt) => {
       const option = document.createElement("option");
-      option.innerHTML = opt;
+      option.textContent = opt;
       categoryFilter.appendChild(option);
     });
   }
