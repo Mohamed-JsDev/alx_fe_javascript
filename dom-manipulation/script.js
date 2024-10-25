@@ -67,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
         body: `${body}`,
       }),
       headers: {},
-      "Content-type": "application/json; charset=UTF-8",
     });
   };
   // create Quote from form
