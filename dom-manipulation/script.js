@@ -54,18 +54,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // fetch data if user want
 
-  const fetchQuotesFromServer = async (category) => {
-    const response = await fetch(
-      `   "https://jsonplaceholder.typicode.com/posts"`,
-      {
-        method: "GET",
-        headers: {
-          "X-Api-Key": "XpH4g8XwTYkt6WKrSa/XUQ==a8dULt795FW2FO9P",
-        },
-      }
-    );
-    const quote = await response.json();
-    return quote[0].quote;
+  const fetchQuotesFromServer = async (id) => {
+    await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+  };
+  const req = (title, body) => {
+    fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      body: JSON.stringify({
+        title: `${title}`,
+        body: `${body}`,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
   };
   // create Quote from form
   function createAddQuoteForm() {
@@ -78,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
     textQuote.innerHTML = `${message} is added done`;
     AddNewQuote.appendChild(textQuote);
     document.body.appendChild(AddNewQuote);
+    req(text, category);
   }
   // change category to random quote
   categoryFilter.onchange = function filterQuotes() {
@@ -87,17 +92,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // show random Quote
   async function displayRandomQuote() {
+    const id = Math.floor(Math.random() * 100);
     //check localStorage & edit category
-    if (
-      localStorage.getItem("value") &&
-      localStorage.getItem("value") === "all"
-    ) {
-      const value = await fetchQuotesFromServer("life");
-      quoteDisplay.innerHTML = value;
-    } else {
-      const value = await fetchQuotesFromServer(localStorage.getItem("value"));
-      quoteDisplay.innerHTML = value;
-    }
+    const value = await fetchQuotesFromServer(id).title;
+    const Value = toString(value);
+    quoteDisplay.innerHTML = Value;
   }
 
   //
