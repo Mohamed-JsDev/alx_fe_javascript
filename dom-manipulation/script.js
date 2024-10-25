@@ -27,45 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
   // عاوزين زرار يطلب منه هوا عاوز الداتا منين لوكل ولا api دا في الزرار اللي بيطلب اقتباس  تلقائيا هيكون فاضل هنبعت الاقتباس فين
   //عاوزين زرار نحدد منه مين اللي يشتغل
-  //
-  // fetch data if user want
 
-  // const fetchQuotesFromServer = async (category) => {
-  //   const response = await fetch(
-  //     `   https://api.api-ninjas.com/v1/quotes?category=${category}`,
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         "X-Api-Key": "XpH4g8XwTYkt6WKrSa/XUQ==a8dULt795FW2FO9P",
-  //       },
-  //     }
-  //   );
-  //   return await response.json();
-  // };
-
-  // function populateCategories() {
-  //   categories.map((opt) => {
-  //     const option = document.createElement("option");
-  //     option.textContent = opt;
-  //     categoryFilter.appendChild(option);
-  //   });
-  // }
-  // populateCategories();
-  // localStorage.setItem("value", categoryFilter.value);
-
-  // categoryFilter.onchange = function filterQuotes() {
-  //   localStorage.setItem("value", categoryFilter.value);
-  //   if (localStorage.getItem("value") === "all") {
-  //     fetchQuotesFromServer("life");
-  //   } else {
-  //     fetchQuotesFromServer(localStorage.getItem("value"));
-  //   }
-  // };
-  // if (localStorage.getItem("value") === "all") {
-  //   fetchQuotesFromServer("life");
-  // } else {
-  //   fetchQuotesFromServer(localStorage.getItem("value"));
-  // }
   // check first value
   localStorage.setItem("value", categoryFilter.value);
   categoryFilter.onchange = function filterQuotes() {
@@ -94,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const fetchQuotesFromServer = async (category) => {
     const response = await fetch(
-      `   https://api.api-ninjas.com/v1/quotes?category=${category}`,
+      `   "https://jsonplaceholder.typicode.com/posts"`,
       {
         method: "GET",
         headers: {
