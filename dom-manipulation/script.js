@@ -55,9 +55,16 @@ document.addEventListener("DOMContentLoaded", function () {
   // fetch data if user want
 
   const fetchQuotesFromServer = async (id) => {
-    await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-      .then((response) => response.json())
-      .then((json) => console.log(json));
+    try {
+      const response = await fetch(
+        `https://jsonplaceholder.typicode.com/posts/${id}`
+      );
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error("Error fetching quote:", error);
+    }
   };
   const req = (title, body) => {
     fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -66,7 +73,9 @@ document.addEventListener("DOMContentLoaded", function () {
         title: `${title}`,
         body: `${body}`,
       }),
-      headers: {},
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
     });
   };
   // create Quote from form
@@ -92,9 +101,10 @@ document.addEventListener("DOMContentLoaded", function () {
   async function displayRandomQuote() {
     const id = Math.floor(Math.random() * 100);
     //check localStorage & edit category
-    const value = await fetchQuotesFromServer(id).title;
-    const Value = toString(value);
-    quoteDisplay.innerHTML = Value;
+    const value = await fetchQuotesFromServer(id);
+    console.log(value.title);
+
+    quoteDisplay.innerHTML = value.title;
   }
 
   //
