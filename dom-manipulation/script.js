@@ -1,50 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const data = {
-    work: [
-      "I used to work at a stationery store.  But, I didn't feel like I was going anywhere.",
-      "So, I got a job at a travel agency.  Now, I know I'll be going places.",
-      "I used to work for a soft drink can crusher. It was soda pressing.",
-      "I knew I shouldn't steal a mixer from work, but it was a whisk I was willing to take.",
-      "I used to work in a shoe recycling shop. It was sole destroying.",
-      "I couldn't figure out how the seat belt worked. Then it just clicked.",
-      "Why did the worker get fired from the orange juice factory? Lack of concentration.",
-      "Want to hear a joke about construction? Nah, I'm still working on it.",
-      "Don’t interrupt someone working intently on a puzzle. Chances are, you’ll hear some crosswords.",
-    ],
-    live: [
-      "Why do fish live in salt water? Because pepper makes them sneeze!",
-      "Why are fish so smart? Because they live in schools!",
-      "What kind of dog lives in a particle accelerator? A Fermilabrador Retriever.",
-      "What do you call a bee that lives in America? A USB.",
-      "Why do fish live in salt water? Because pepper makes them sneeze!",
-      "Why are fish so smart? Because they live in schools!",
-      "What kind of dog lives in a particle accelerator? A Fermilabrador Retriever.",
-      "What do you call a bee that lives in America? A USB.",
-      "Why do fish live in salt water? Because pepper makes them sneeze!",
-      "Why are fish so smart? Because they live in schools!",
-      "What kind of dog lives in a particle accelerator? A Fermilabrador Retriever.",
-      "What do you call a bee that lives in America? A USB.",
-    ],
-    sleep: [
-      "If a child refuses to sleep during nap time, are they guilty of resisting a rest?",
-      "How do you get a baby alien to sleep?  You rocket.",
-      "What has a bed that you can’t sleep in? A river.",
-      "Why did the man run around his bed? Because he was trying to catch up on his sleep!",
-      "What kind of dinosaur loves to sleep? A stega-snore-us.",
-      "I am so good at sleeping I can do it with my eyes closed!",
-    ],
-    wife: [
-      " Wife told me to take the spider out instead of killing it... We had some drinks, cool guy, wants to be a web developer.",
-      "My wife is on a tropical fruit diet, the house is full of stuff. It is enough to make a mango crazy.",
-      "It's difficult to say what my wife does, she sells sea shells by the sea shore.",
-      "The other day, my wife asked me to pass her lipstick but I accidentally passed her a glue stick. She still isn't talking to me.",
-      "When my wife told me to stop impersonating a flamingo, I had to put my foot down.",
-      "For Valentine's day, I decided to get my wife some beads for an abacus.  It's the little things that count.",
-      "My wife told me to rub the herbs on the meat for better flavor. That's sage advice.",
-      "I thought my wife was joking when she said she'd leave me if I didn't stop signing I'm A Believer... Then I saw her face.",
-      "My wife said I was immature. So I told her to get out of my fort.",
-    ],
-  };
   const newQuoteText = document.getElementById("newQuoteText");
   const newQuoteCategory = document.getElementById("newQuoteCategory"); // Updated ID
   const btnAddQuote = document.getElementById("btnAddQuote");
@@ -52,10 +6,78 @@ document.addEventListener("DOMContentLoaded", function () {
   const quoteDisplay = document.getElementById("quoteDisplay");
   const categoryFilter = document.getElementById("categoryFilter");
   const exportButton = document.getElementById("exportQuotes");
-  function populateCategories() {
-    const categories = Object.keys(data);
-    console.log(categories);
 
+  const categories = [
+    "age",
+    "alone",
+    "amazing",
+    "anger",
+    "architecture",
+    "art",
+    "attitude",
+    "beauty",
+    "best",
+    "birthday",
+    "business",
+    "car",
+    "change",
+    "communication",
+    "computers",
+    "cool",
+  ];
+  // عاوزين زرار يطلب منه هوا عاوز الداتا منين لوكل ولا api دا في الزرار اللي بيطلب اقتباس  تلقائيا هيكون فاضل هنبعت الاقتباس فين
+  //عاوزين زرار نحدد منه مين اللي يشتغل
+  //
+  // fetch data if user want
+
+  // const fetchQuotesFromServer = async (category) => {
+  //   const response = await fetch(
+  //     `   https://api.api-ninjas.com/v1/quotes?category=${category}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "X-Api-Key": "XpH4g8XwTYkt6WKrSa/XUQ==a8dULt795FW2FO9P",
+  //       },
+  //     }
+  //   );
+  //   return await response.json();
+  // };
+
+  // function populateCategories() {
+  //   categories.map((opt) => {
+  //     const option = document.createElement("option");
+  //     option.textContent = opt;
+  //     categoryFilter.appendChild(option);
+  //   });
+  // }
+  // populateCategories();
+  // localStorage.setItem("value", categoryFilter.value);
+
+  // categoryFilter.onchange = function filterQuotes() {
+  //   localStorage.setItem("value", categoryFilter.value);
+  //   if (localStorage.getItem("value") === "all") {
+  //     fetchQuotesFromServer("life");
+  //   } else {
+  //     fetchQuotesFromServer(localStorage.getItem("value"));
+  //   }
+  // };
+  // if (localStorage.getItem("value") === "all") {
+  //   fetchQuotesFromServer("life");
+  // } else {
+  //   fetchQuotesFromServer(localStorage.getItem("value"));
+  // }
+  // check first value
+  localStorage.setItem("value", categoryFilter.value);
+  categoryFilter.onchange = function filterQuotes() {
+    localStorage.setItem("value", categoryFilter.value);
+  };
+  // turn Buttons & function
+  btnAddQuote.addEventListener("click", createAddQuoteForm);
+  showNewQuote.addEventListener("click", displayRandomQuote);
+  exportButton.addEventListener("click", exportQuotesToJson);
+  // add category option in html documents
+  function populateCategories() {
+    localStorage.setItem("value", categoryFilter.value);
     categories.map((opt) => {
       const option = document.createElement("option");
       option.textContent = opt;
@@ -63,104 +85,68 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   populateCategories();
-  localStorage.setItem("value", categoryFilter.value);
-  categoryFilter.onchange = function filterQuotes() {
-    localStorage.setItem("value", categoryFilter.value);
-  };
 
   btnAddQuote.addEventListener("click", createAddQuoteForm);
 
   showNewQuote.addEventListener("click", displayRandomQuote);
 
-  exportButton.addEventListener("click", exportQuotesToJson);
+  // fetch data if user want
 
-  localStorage.setItem("work", data.work);
-  localStorage.setItem("live", data.live);
-  localStorage.setItem("sleep", data.sleep);
-  localStorage.setItem("wife", data.wife);
+  const fetchQuotesFromServer = async (category) => {
+    const response = await fetch(
+      `   https://api.api-ninjas.com/v1/quotes?category=${category}`,
+      {
+        method: "GET",
+        headers: {
+          "X-Api-Key": "XpH4g8XwTYkt6WKrSa/XUQ==a8dULt795FW2FO9P",
+        },
+      }
+    );
+    const quote = await response.json();
+    return quote[0].quote;
+  };
+  // create Quote from form
   function createAddQuoteForm() {
     const text = newQuoteText.value;
     const category = newQuoteCategory.value.trim();
     let message = [];
-    switch (category) {
-      case "work":
-        localStorage.removeItem(category);
-        data.work.push(text);
-        message = text;
-        localStorage.setItem(category, data.work);
-        // vaLs.push(text);
-        break;
-      case "live":
-        localStorage.removeItem(category);
-        data.live.push(text);
-        message = text;
-        localStorage.setItem(category, data.live);
 
-        break;
-      case "sleep":
-        localStorage.removeItem(category);
-        data.sleep.push(text);
-        message = text;
-        localStorage.setItem(category, data.sleep);
-        break;
-      case "wife":
-        localStorage.removeItem(category);
-        data.wife.push(text);
-        message = text;
-        localStorage.setItem(category, data.wife);
-        break;
-      default:
-        data[category] = [text];
-        message = text;
-        localStorage.setItem(category, text);
-    }
-    // function addLocal(Quote, category) {
-    //   if (data.category) {
-    //     localStorage.setItem(data.category, Quote);
-    //   }
-    // }
     const AddNewQuote = document.createElement("div");
     const textQuote = document.createElement("p");
     textQuote.innerHTML = `${message} is added done`;
     AddNewQuote.appendChild(textQuote);
     document.body.appendChild(AddNewQuote);
   }
+  // change category to random quote
+  categoryFilter.onchange = function filterQuotes() {
+    localStorage.removeItem("value");
+    localStorage.setItem("value", categoryFilter.value);
+  };
+
   // show random Quote
-  function displayRandomQuote() {
-    // const num = Math.floor(Math.random() * 10);
-    const num2 = Math.floor(Math.random() * 10);
-    function showRandomQuote() {
-      const selectedCategory = localStorage.getItem("value");
-      switch (selectedCategory) {
-        case "work":
-          const work = [localStorage.getItem("work")];
-          quoteDisplay.innerHTML = data.work[num2];
-          // console.log(work[num2]);/
-          break;
-        case "live":
-          const live = localStorage.getItem("live");
-          quoteDisplay.innerHTML = data.live[num2];
-          // console.log(live[num2]);
-          break;
-        case "sleep":
-          const sleep = localStorage.getItem("sleep");
-          quoteDisplay.innerHTML = data.sleep[num2];
-          // console.log(sleep[num2]);
-          break;
-        case "wife":
-          const wife = localStorage.getItem("wife");
-          quoteDisplay.innerHTML = data.wife[num2];
-          // console.log(wife[num2]);
-          break;
-        default:
-          let data1 = [...data.work, ...data.live, ...data.sleep, ...data.wife];
-          quoteDisplay.innerHTML = data1[num2];
-          break;
-      }
+  async function displayRandomQuote() {
+    //check localStorage & edit category
+    if (
+      localStorage.getItem("value") &&
+      localStorage.getItem("value") === "all"
+    ) {
+      const value = await fetchQuotesFromServer("life");
+      quoteDisplay.innerHTML = value;
+    } else {
+      const value = await fetchQuotesFromServer(localStorage.getItem("value"));
+      quoteDisplay.innerHTML = value;
     }
-    showRandomQuote();
   }
 
+  //
+  //
+  //
+  //
+  //////////////////////////////////////////////////////////
+  ///
+  ///
+  //
+  //
   // add json file
   let quotes = JSON.parse(localStorage.getItem("quotes")) || [];
 
