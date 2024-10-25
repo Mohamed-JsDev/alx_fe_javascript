@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((json) => console.log(json));
   };
-  const req = (title, body) => {
+  const posting = (title, body) => {
     fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "POST",
       body: JSON.stringify({
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
     textQuote.innerHTML = `${message} is added done`;
     AddNewQuote.appendChild(textQuote);
     document.body.appendChild(AddNewQuote);
-    req(text, category);
+    posting(text, category);
   }
   // change category to random quote
   categoryFilter.onchange = function filterQuotes() {
